@@ -3,9 +3,9 @@
 set -e
 
 # activate our virtual environment here
-. /opt/pysetup/.venv/bin/activate
+. /venv/bin/activate
 
 # You can put other setup logic here
 
 # Evaluating passed command:
-exec "$@"
+exec python dyn-cloudflare-ddns

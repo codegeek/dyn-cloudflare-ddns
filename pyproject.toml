@@ -1,8 +1,11 @@
 [tool.poetry]
-name = "dyn-cloudfare-ddns"
+name = "dyn-cloudflare-ddns"
 version = "0.1.0"
 description = "Update Cloudflare DNS from a dynamic DNS record"
 authors = ["Guillermo Castro <admin@codegeek.dev>"]
+packages = [
+    { include = "dyn-cloudflare-ddns" }
+]
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -14,5 +17,5 @@ requests = "^2.26.0"
 pytest = "^6.2.4"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=1.1.7"]
 build-backend = "poetry.core.masonry.api"
