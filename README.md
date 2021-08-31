@@ -36,4 +36,7 @@ $ poetry run python3 dyn-cloudflare-ddns
 ```
 
 ### Inside Docker
-TBD
+
+```shell
+docker run -e CF_API_KEY='<CF_KEY>' -e DDNS_HOST='<DDNS_HOST>' -e CF_ZONE='<CF_ZONE>' -d --name dyn-cloudflare-ddns ghcr.io/codegeek/dyn-cloudflare-ddns
+```
