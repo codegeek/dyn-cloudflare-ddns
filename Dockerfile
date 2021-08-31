@@ -30,7 +30,8 @@ FROM base as final
 RUN apk add --no-cache libffi
 COPY --from=builder /venv /venv
 COPY dyn-cloudflare-ddns ./dyn-cloudflare-ddns
-COPY docker-entrypoint.sh ./
+COPY docker-entrypoint.sh crontab ./
 RUN chmod +x ./docker-entrypoint.sh
+RUN crontab crontab
 
-CMD [ "./docker-entrypoint.sh" ]
+CMD [ "crond", "-f" ]
