@@ -99,7 +99,7 @@ def main():
     external_ips = getExternalIPFromDDNS(ddnsHost, ddnsRtype)
     if external_ips != None:
         ip = external_ips.rrset[0].to_text()
-        logger.info('Trying to update CloudFlare Zone "%s" with IP: %s' % (cfZone, ip))
+        logger.debug('Trying to update CloudFlare Zone "%s" with IP: %s' % (cfZone, ip))
         updateCloudflare(ip, ddnsRtype, cfZone)
     else:
         logger.error('No external IPs found for host "%s"' % ddnsHost)
