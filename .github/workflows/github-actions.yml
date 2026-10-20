@@ -28,7 +28,9 @@ jobs:
       - name: Check installed dependencies
         run: poetry run python -m pip check
       - name: Check imports
-        run: poetry run python -c "import CloudFlare, dns.resolver, requests"
+        run: poetry run python -c "import cloudflare, dns.resolver"
+      - name: Test DNS updater
+        run: poetry run python -m unittest discover -s tests -v
       - name: Build package
         run: poetry build
 

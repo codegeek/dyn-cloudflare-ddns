@@ -4,10 +4,6 @@ updates:
     directory: /
     schedule:
       interval: weekly
-    ignore:
-      # Newer major versions require a migration from the legacy CloudFlare API.
-      - dependency-name: cloudflare
-        update-types: [version-update:semver-major]
   - package-ecosystem: docker
     directory: /
     schedule:
