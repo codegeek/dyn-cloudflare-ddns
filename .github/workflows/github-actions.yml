@@ -1,30 +1,45 @@
 name: Github build
-on: [push]
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+env:
+  POETRY_VERSION: "2.5.1"
 
 jobs:
   dist:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12", "3.14"]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Setup Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: 3.12
+          python-version: ${{ matrix.python-version }}
       - name: Install Poetry
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install poetry
-      - name: Configure Poetry
-        run: poetry config virtualenvs.in-project true
-      - name: Set up cache
-        uses: actions/cache@v1
-        id: cache
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ hashFiles('**/poetry.lock') }}
-      - name: Ensure cache is healthy
-        if: steps.cache.outputs.cache-hit == 'true'
-        run: python -m poetry run pip --version >/dev/null 2>&1 || rm -rf .venv
+        run: python -m pip install "poetry==$POETRY_VERSION"
+      - name: Check lockfile
+        run: poetry check --lock
       - name: Install Dependencies
-        run: python -m poetry install
+        run: poetry sync --no-interaction
+      - name: Check installed dependencies
+        run: poetry run python -m pip check
+      - name: Check imports
+        run: poetry run python -c "import CloudFlare, dns.resolver, requests"
+      - name: Build package
+        run: poetry build
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - name: Build Docker image
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          push: false

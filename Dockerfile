@@ -1,31 +1,31 @@
-FROM python:3.12.2-alpine as base
+FROM python:3.12-alpine AS base
 
 ENV PYTHONFAULTHANDLER=1 \
-    PYTHONBUFFERED=1 \
+    PYTHONUNBUFFERED=1 \
     PYTHONHASHSEED=random
 
 WORKDIR /app
 
-FROM base as builder
+FROM base AS builder
 
-ENV PIC_NO_CACHE_DIR=1 \
+ENV PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_DEFAULT_TIMEOUT=100 \
-    CRYPTOGRAPHY_DONT_BUILD_RUST=1 \
-    POETRY_VERSION=1.8.2
+    POETRY_VERSION=2.5.1
 
-RUN apk add --no-cache gcc openssl-dev python3-dev libffi-dev musl-dev
 RUN pip install --upgrade pip
 RUN pip install "poetry==$POETRY_VERSION"
 RUN python -m venv /venv
+ENV VIRTUAL_ENV=/venv \
+    PATH="/venv/bin:$PATH"
 
 COPY poetry.lock pyproject.toml ./
-RUN poetry export -f requirements.txt | /venv/bin/pip install -r /dev/stdin
+RUN poetry sync --only main --no-root --no-interaction
 
 COPY . .
-RUN poetry build && /venv/bin/pip install dist/*.whl
+RUN poetry build && /venv/bin/pip install --no-deps dist/*.whl
 
-FROM base as final
+FROM base AS final
 
 RUN apk add --no-cache libffi
 COPY --from=builder /venv /venv
