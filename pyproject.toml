@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dyn-cloudflare-ddns"
-version = "0.1.1"
+version = "0.2.0"
 description = "Update Cloudflare DNS from a dynamic DNS record"
 authors = ["Guillermo Castro <admin@codegeek.dev>"]
 packages = [
