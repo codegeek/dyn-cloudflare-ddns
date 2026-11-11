@@ -46,14 +46,14 @@ files = [
 
 [[package]]
 name = "cloudflare"
-version = "5.9.0"
+version = "5.10.0"
 description = "The official Python library for the cloudflare API"
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "cloudflare-5.9.0-py3-none-any.whl", hash = "sha256:70f0c966c26802837fe7ebe95a7b4a14c723159e742bc49d34642b21a2dc11b5"},
-    {file = "cloudflare-5.9.0.tar.gz", hash = "sha256:1c9b9e243602c754e03636204272422dc45776f3babdc67f8341ca4d559d49e8"},
+    {file = "cloudflare-5.10.0-py3-none-any.whl", hash = "sha256:a5441bf00050e35fcf589123ecbfb740c22b54207d3ee27b0b1857fc7427e525"},
+    {file = "cloudflare-5.10.0.tar.gz", hash = "sha256:3e1ac8f71f5098dc3541bfd77ae0d3abd710aebef48093021e7d37f6bb584ca0"},
 ]
 
 [package.dependencies]
