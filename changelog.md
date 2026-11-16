@@ -1,3 +1,8 @@
+# Version 0.2.1
+
+- Standalone execution now requires Python 3.11+ (Python 3.10 is end-of-life).
+- Updated dnspython to 2.9.2 to address security advisories.
+
 # Version 0.2.0
 
 - Migrated from the legacy Cloudflare 2.x SDK to Cloudflare 5.9.0.
