@@ -6,7 +6,7 @@
 ![GitHub License](https://img.shields.io/github/license/codegeek/dyn-cloudflare-ddns)
 
 
-Dyn-Cloudflare-DDNS is a simple Python 3.10+ script that retrieves an IP address from a Dynamic DNS provider (Dyn, No-IP, etc)
+Dyn-Cloudflare-DDNS is a simple Python 3.11+ script that retrieves an IP address from a Dynamic DNS provider (Dyn, No-IP, etc)
 and uses that to update Cloudflare's DNS. The reason for this script is that many routers have the capability to update DDNS 
 services, but usually Cloudflare isn't supported.
 
